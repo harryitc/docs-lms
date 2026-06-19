@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 // ⚙️ Đổi domain này thành tên miền thật khi triển khai (dùng cho SEO: sitemap, canonical, Open Graph)
 const SITE_URL = 'https://docs-lms.vercel.app'
-const OG_IMAGE = `${SITE_URL}/og-image.png` // đặt ảnh 1200x630 vào docs/public/og-image.png
+const OG_IMAGE = `${SITE_URL}/logo.png` // ảnh chia sẻ mạng xã hội (có thể thay bằng og-image.png 1200x630 để đẹp hơn)
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -23,7 +23,8 @@ export default defineConfig({
     ['meta', { name: 'author', content: 'HUTECH' }],
     ['meta', { name: 'keywords', content: 'HUTECH, hỗ trợ, hướng dẫn, HUTECH ID, SSO, email sinh viên, LMS, cổng sinh viên, đăng ký môn học, học phí' }],
     ['meta', { name: 'robots', content: 'index, follow' }],
-    ['link', { rel: 'icon', href: '/favicon.ico' }],
+    ['link', { rel: 'icon', type: 'image/png', href: '/favicon.png' }],
+    ['link', { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' }],
 
     // Open Graph (Facebook, Zalo...)
     ['meta', { property: 'og:type', content: 'website' }],
@@ -104,7 +105,8 @@ export default defineConfig({
   },
 
   themeConfig: {
-    // logo: '/logo.svg', // bật lại khi bạn cung cấp logo
+    logo: '/logo.png',
+    siteTitle: 'Help Center', // hiển thị cạnh logo Canvas; đặt false nếu chỉ muốn logo
 
     nav: [
       { text: 'Trang chủ', link: '/' },
