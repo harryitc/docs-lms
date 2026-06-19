@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress'
 
 // ⚙️ Đổi domain này thành tên miền thật khi triển khai (dùng cho SEO: sitemap, canonical, Open Graph)
-const SITE_URL = 'https://help.hutech.edu.vn'
+const SITE_URL = 'https://docs-lms.vercel.app'
 const OG_IMAGE = `${SITE_URL}/og-image.png` // đặt ảnh 1200x630 vào docs/public/og-image.png
 
 // https://vitepress.dev/reference/site-config
