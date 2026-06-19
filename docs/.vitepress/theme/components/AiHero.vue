@@ -217,8 +217,11 @@ onBeforeUnmount(() => {
   filter: drop-shadow(0 0 6px rgba(242, 106, 27, 0.95));
 }
 
-/* Dark mode: đường nối sáng hơn chút cho rõ trên nền tối */
-:global(.dark) .nn-edge {
+/* Dark mode: đường nối sáng hơn chút cho rõ trên nền tối.
+   LƯU Ý: phải bọc CẢ selector trong :global(...). Nếu viết
+   ":global(.dark) .nn-edge" thì compiler VitePress alpha biên dịch sai
+   thành ".dark{opacity:.4}" → làm mờ TOÀN bộ trang ở dark mode. */
+:global(.dark .nn-edge) {
   opacity: 0.4;
 }
 </style>
