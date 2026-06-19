@@ -1,0 +1,78 @@
+/**
+ * HUTECH Help Center — Bảng màu chủ đạo: XANH (primary) + CAM (accent)
+ * Ghi đè biến CSS của VitePress default theme.
+ * Tham khảo biến: https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
+ */
+
+:root {
+  /* ----- Màu thương hiệu: XANH ----- */
+  --vp-c-brand-1: #0a6bd4; /* xanh đậm — chữ/link nổi bật */
+  --vp-c-brand-2: #1e7fe0;
+  --vp-c-brand-3: #2b8af0; /* nền nút brand */
+  --vp-c-brand-soft: rgba(42, 138, 240, 0.14);
+
+  /* ----- Màu nhấn: CAM ----- */
+  --hutech-orange-1: #f26a1b;
+  --hutech-orange-2: #ff7a2e;
+  --hutech-orange-soft: rgba(242, 106, 27, 0.14);
+
+  /* ----- Nút brand (dùng cho nút chính ở Hero) ----- */
+  --vp-button-brand-bg: var(--vp-c-brand-3);
+  --vp-button-brand-hover-bg: var(--vp-c-brand-2);
+  --vp-button-brand-active-bg: var(--vp-c-brand-1);
+  --vp-button-brand-border: transparent;
+  --vp-button-brand-hover-border: transparent;
+  --vp-button-brand-active-border: transparent;
+
+  /* ----- Hero: tên hiển thị bằng gradient xanh → cam ----- */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, #0a6bd4 20%, #f26a1b);
+
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    rgba(42, 138, 240, 0.5) 30%,
+    rgba(242, 106, 27, 0.5)
+  );
+  --vp-home-hero-image-filter: blur(56px);
+}
+
+.dark {
+  --vp-c-brand-1: #5aa8f5;
+  --vp-c-brand-2: #3d96f0;
+  --vp-c-brand-3: #1e7fe0;
+  --vp-c-brand-soft: rgba(90, 168, 245, 0.16);
+
+  --vp-home-hero-name-background: linear-gradient(120deg, #5aa8f5 20%, #ff8a45);
+}
+
+/* ----- Nút "alt" (nút phụ ở Hero) tô viền CAM ----- */
+.VPButton.alt {
+  border-color: var(--hutech-orange-1);
+  color: var(--hutech-orange-1);
+}
+.VPButton.alt:hover {
+  background-color: var(--hutech-orange-soft);
+  border-color: var(--hutech-orange-2);
+  color: var(--hutech-orange-2);
+}
+
+/* ----- Icon các thẻ tính năng dùng nền xanh nhạt ----- */
+.VPFeature .icon {
+  background-color: var(--vp-c-brand-soft) !important;
+}
+
+/* ----- Thanh nav hover & active màu xanh đậm hơn ----- */
+.VPNavBarMenuLink.active,
+.VPNavBarMenuLink:hover {
+  color: var(--vp-c-brand-1);
+}
+
+/* ----- Khối custom block "tip" mặc định của VitePress dùng màu brand (xanh) ----- */
+/* Tạo thêm sắc cam cho block "warning" cho hợp tông cảnh báo */
+.custom-block.warning {
+  border-color: var(--hutech-orange-1);
+  background-color: var(--hutech-orange-soft);
+}
+.custom-block.warning .custom-block-title {
+  color: var(--hutech-orange-1);
+}
