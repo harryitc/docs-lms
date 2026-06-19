@@ -3,59 +3,52 @@
 layout: home
 
 hero:
-  name: "HUTECH Help Center"
-  text: "Trung tâm Hỗ trợ CNTT"
-  tagline: Hướng dẫn sử dụng tài khoản, email, hệ thống học tập và các dịch vụ trực tuyến của HUTECH.
-  # image:
-  #   src: /hero.png        # bật lại khi bạn cung cấp ảnh
-  #   alt: HUTECH Help Center
+  name: "AIDT"
+  text: "Tài liệu & Hỗ trợ"
+  tagline: Viện Trí tuệ Nhân tạo và Chuyển đổi số (HUTECH) — Trung tâm quản lý tài liệu, hỗ trợ, hệ thống và các ứng dụng AI.
   actions:
     - theme: brand
-      text: Bắt đầu với HUTECH ID
-      link: /tai-khoan/
+      text: Khám phá hỗ trợ
+      link: /lms/
     - theme: alt
-      text: Câu hỏi thường gặp
-      link: /tai-khoan/quen-mat-khau
+      text: Về hệ thống AIDT
+      link: /he-thong-aidt/
 
 features:
-  - icon: 🔑
-    title: Tài khoản HUTECH ID
-    details: Một tài khoản duy nhất để đăng nhập (SSO) vào tất cả hệ thống của trường. Quản lý mật khẩu và bảo mật.
-    link: /tai-khoan/
-    linkText: Xem hướng dẫn
-  - icon: ✉️
-    title: Email & Google Apps
-    details: Email sinh viên/giảng viên và bộ công cụ Google (Drive, Meet, Classroom) đi kèm.
-    link: /email/
-    linkText: Xem hướng dẫn
-  - icon: 🎓
-    title: Hệ thống LMS
-    details: Truy cập khóa học, tài liệu, nộp bài và làm bài kiểm tra trên hệ thống quản lý học tập.
+  - icon: 🛟
+    title: Hỗ trợ & Tài liệu
+    details: Hướng dẫn sử dụng, giải đáp thắc mắc và xử lý sự cố cho các hệ thống của AIDT (bắt đầu với Canvas LMS).
     link: /lms/
-    linkText: Xem hướng dẫn
-  - icon: 🏫
-    title: Cổng SV & Đào tạo
-    details: Đăng ký môn học, xem thời khóa biểu, kết quả học tập và tra cứu học phí.
-    link: /cong-sinh-vien/
-    linkText: Xem hướng dẫn
+    linkText: Xem hỗ trợ
+  - icon: 🖥️
+    title: Hệ thống AIDT
+    details: Các nền tảng số do Viện triển khai và vận hành — danh mục hệ thống và tài liệu liên quan.
+    link: /he-thong-aidt/
+    linkText: Xem hệ thống
+  - icon: 🤖
+    title: AI & Chuyển đổi số
+    details: Ứng dụng trí tuệ nhân tạo trong giáo dục và các giải pháp chuyển đổi số của AIDT.
+    link: /he-thong-aidt/
+    linkText: Tìm hiểu
 ---
 
-## Hệ thống sử dụng HUTECH ID
+## AIDT — Trung tâm Tài liệu & Hỗ trợ
 
-::: warning ⚠️ Lưu ý về đăng nhập một lần (SSO)
-Từ năm học 2025–2026, các hệ thống của HUTECH sử dụng **đăng nhập một lần (Single Sign-On)**.
-Trang đăng nhập chính thức luôn bắt đầu bằng **`https://sso.hutech.edu.vn`**.
+Đây là nơi tập trung **tài liệu, hướng dẫn, hỗ trợ** cho các **hệ thống** và **ứng dụng AI** do **Viện Trí tuệ Nhân tạo và Chuyển đổi số (AIDT) – HUTECH** phát triển và vận hành.
 
-**Tuyệt đối không** nhập tài khoản/mật khẩu trên bất kỳ trang nào khác để tránh bị lừa đảo (phishing).
+::: tip 🚀 Bắt đầu từ đâu?
+- 🛟 Cần **hướng dẫn sử dụng** một hệ thống? → Vào mục [Hỗ trợ](/lms/).
+- 🖥️ Muốn biết AIDT có những **hệ thống** nào? → Xem [Hệ thống AIDT](/he-thong-aidt/).
+- ☎️ Cần **trợ giúp trực tiếp**? → [Liên hệ](/lien-he/).
 :::
 
-Các dịch vụ dùng chung tài khoản HUTECH ID:
+## Nội dung chính
 
-| Hệ thống | Địa chỉ | Mô tả |
+| Lĩnh vực | Mô tả | Liên kết |
 | --- | --- | --- |
-| Cổng đăng nhập SSO | `sso.hutech.edu.vn` | Đăng nhập một lần cho mọi hệ thống |
-| Email & Google Apps | `mail.hutech.edu.vn` | Email và công cụ làm việc |
-| Hệ thống LMS | `lms.hutech.edu.vn` | Học tập trực tuyến |
-| Cổng sinh viên | `sinhvien.hutech.edu.vn` | Dịch vụ và thông tin sinh viên |
+| 🛟 **Hỗ trợ** | Hướng dẫn & xử lý sự cố các hệ thống | [Xem](/lms/) |
+| 🖥️ **Hệ thống AIDT** | Danh mục nền tảng số đang vận hành | [Xem](/he-thong-aidt/) |
+| 🤖 **AI & Chuyển đổi số** | Giải pháp AI và chuyển đổi số | [Xem](/he-thong-aidt/) |
+| ☎️ **Liên hệ** | Kênh hỗ trợ trực tiếp | [Xem](/lien-he/) |
 
-> 💡 Chưa biết bắt đầu từ đâu? Hãy đọc trang [Giới thiệu tài khoản HUTECH ID](/tai-khoan/) trước tiên.
+> 💡 Hệ thống đang được hỗ trợ hiện tại: **Canvas LMS**. Các hệ thống và tài liệu khác sẽ được bổ sung tại đây.
