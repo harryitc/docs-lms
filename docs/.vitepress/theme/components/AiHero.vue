@@ -1,73 +1,103 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { gsap } from 'gsap'
-import { MotionPathPlugin } from 'gsap/MotionPathPlugin'
 
-// Mạng nơ-ron quanh lõi AIDT — toạ độ tính sẵn (tất định, an toàn cho SSR)
-const cx = 180
-const cy = 180
-const R = 140
-const nodes = Array.from({ length: 8 }, (_, i) => {
-  const a = (Math.PI / 4) * i
-  return { i, x: +(cx + R * Math.cos(a)).toFixed(1), y: +(cy + R * Math.sin(a)).toFixed(1) }
+/* ----- Dựng mạng nơ-ron nhiều tầng (toạ độ tất định → an toàn SSR) ----- */
+const W = 360
+const H = 360
+const padX = 50
+const padY = 44
+const layerSizes = [4, 5, 5, 3] // số nút mỗi tầng: input → ẩn → ẩn → output
+
+const layerX = (i) => padX + (W - 2 * padX) * (i / (layerSizes.length - 1))
+const nodeY = (k, n) => (n === 1 ? H / 2 : padY + (H - 2 * padY) * (k / (n - 1)))
+
+const nodes = []
+layerSizes.forEach((n, li) => {
+  for (let k = 0; k < n; k++) {
+    nodes.push({
+      id: `${li}-${k}`,
+      x: +layerX(li).toFixed(1),
+      y: +nodeY(k, n).toFixed(1),
+      layer: li,
+      frac: li / (layerSizes.length - 1),
+    })
+  }
 })
-const particles = [0, 1, 2, 3, 4, 5]
+
+const edges = []
+for (let li = 0; li < layerSizes.length - 1; li++) {
+  const a = nodes.filter((nd) => nd.layer === li)
+  const b = nodes.filter((nd) => nd.layer === li + 1)
+  a.forEach((s) => b.forEach((t) => edges.push({ x1: s.x, y1: s.y, x2: t.x, y2: t.y, layer: li })))
+}
+
+const signalCount = 16
+
+// Màu nút: nội suy xanh (input) → cam (output)
+const mix = (f) => {
+  const c1 = [43, 138, 240]
+  const c2 = [242, 106, 27]
+  const c = c1.map((v, i) => Math.round(v + (c2[i] - v) * f))
+  return `rgb(${c[0]},${c[1]},${c[2]})`
+}
 
 const root = ref(null)
 let ctx
+let alive = true
 
 onMounted(() => {
-  // Tôn trọng người dùng tắt hiệu ứng chuyển động
-  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return
-
-  gsap.registerPlugin(MotionPathPlugin)
+  const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 
   ctx = gsap.context((self) => {
-    // Vòng quỹ đạo: căn giữa rồi xoay liên tục
-    gsap.set(['.ai-orbit-1', '.ai-orbit-2', '.ai-orbit-3'], { xPercent: -50, yPercent: -50 })
-    gsap.to('.ai-orbit-1', { rotation: 360, duration: 18, repeat: -1, ease: 'none' })
-    gsap.to('.ai-orbit-2', { rotation: -360, duration: 13, repeat: -1, ease: 'none' })
-    gsap.to('.ai-orbit-3', { rotation: 360, duration: 9, repeat: -1, ease: 'none' })
+    const edgeEls = self.selector('.nn-edge')
+    const nodeEls = self.selector('.nn-node')
+    const sigEls = self.selector('.nn-signal')
 
-    // Nút mạng nhấp nháy theo nhịp
-    gsap.to('.ai-node', {
-      scale: 1.35,
-      opacity: 1,
-      transformOrigin: 'center',
-      duration: 1.2,
-      repeat: -1,
-      yoyo: true,
-      ease: 'sine.inOut',
-      stagger: { each: 0.18, from: 'random' },
-    })
+    if (reduce) {
+      gsap.set(edgeEls, { strokeDashoffset: 0 })
+      gsap.set(nodeEls, { opacity: 1 })
+      gsap.set(sigEls, { opacity: 0 })
+      return
+    }
 
-    // Tín hiệu dữ liệu chạy dọc đường nối vào lõi
-    self.selector('.ai-signal').forEach((el, i) => {
+    // 1) Vẽ dần các đường kết nối (mô phỏng DrawSVG bằng dasharray)
+    edgeEls.forEach((el) => {
+      const len = el.getTotalLength ? el.getTotalLength() : 220
+      const layer = Number(el.dataset.layer || 0)
+      gsap.set(el, { strokeDasharray: len, strokeDashoffset: len })
       gsap.to(el, {
-        duration: 2.4,
-        repeat: -1,
-        delay: i * 0.28,
-        ease: 'power1.in',
-        motionPath: {
-          path: '#ai-line-' + i,
-          align: '#ai-line-' + i,
-          alignOrigin: [0.5, 0.5],
-        },
+        strokeDashoffset: 0,
+        duration: 0.9,
+        ease: 'power1.inOut',
+        delay: 0.35 * layer + Math.random() * 0.35,
       })
     })
 
-    // Lõi & ánh sáng "thở"
-    gsap.to('.ai-core', {
-      scale: 1.06,
+    // 2) Nút bật ra rồi nhấp nháy theo nhịp
+    gsap.from(nodeEls, {
+      scale: 0,
       transformOrigin: 'center',
-      duration: 1.7,
+      duration: 0.5,
+      ease: 'back.out(2)',
+      stagger: 0.02,
+      delay: 0.4,
+    })
+    gsap.to(nodeEls, {
+      scale: 1.2,
+      transformOrigin: 'center',
+      duration: 1.1,
       repeat: -1,
       yoyo: true,
       ease: 'sine.inOut',
+      stagger: { each: 0.05, from: 'random' },
+      delay: 1,
     })
-    gsap.to('.ai-glow', {
-      scale: 1.08,
+
+    // 3) Ánh sáng nền "thở"
+    gsap.to('.nn-glow', {
       opacity: 1,
+      scale: 1.06,
       transformOrigin: 'center',
       duration: 2.6,
       repeat: -1,
@@ -75,180 +105,120 @@ onMounted(() => {
       ease: 'sine.inOut',
     })
 
-    // Hạt bay lơ lửng
-    self.selector('.ai-particle').forEach((el, i) => {
-      gsap.to(el, {
-        x: i % 2 ? -14 : 12,
-        y: -16,
-        duration: 3 + i * 0.5,
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut',
-        delay: i * 0.3,
-      })
-    })
-
-    // Toàn khối xuất hiện mềm mại
-    gsap.from(root.value, {
-      opacity: 0,
-      scale: 0.9,
-      duration: 0.8,
-      ease: 'power2.out',
-    })
+    // 4) Xung dữ liệu chạy xuyên các tầng (trái → phải)
+    const fire = (el, delay) => {
+      if (!alive) return
+      const e = edges[(Math.random() * edges.length) | 0]
+      gsap.set(el, { attr: { cx: e.x1, cy: e.y1 }, opacity: 0 })
+      const tl = gsap.timeline({ delay, onComplete: () => fire(el, Math.random() * 0.5) })
+      tl.to(el, { opacity: 1, duration: 0.14 }, 0)
+        .to(el, { attr: { cx: e.x2, cy: e.y2 }, duration: 0.55 + Math.random() * 0.5, ease: 'power1.inOut' }, 0)
+        .to(el, { opacity: 0, duration: 0.16 }, '>-0.16')
+    }
+    sigEls.forEach((el, i) => fire(el, 1.1 + i * 0.18))
   }, root.value)
 })
 
-onBeforeUnmount(() => ctx && ctx.revert())
+onBeforeUnmount(() => {
+  alive = false
+  if (root.value) gsap.killTweensOf(root.value.querySelectorAll('*'))
+  ctx && ctx.revert()
+})
 </script>
 
 <template>
-  <div ref="root" class="ai-hero" aria-hidden="true">
-    <!-- Ánh sáng nền -->
-    <div class="ai-glow"></div>
+  <div ref="root" class="nn-hero" aria-hidden="true">
+    <div class="nn-glow"></div>
 
-    <!-- Các vòng quỹ đạo (GSAP xoay) -->
-    <div class="ai-orbit ai-orbit-1"><span class="ai-orbit-dot"></span></div>
-    <div class="ai-orbit ai-orbit-2"><span class="ai-orbit-dot orange"></span></div>
-    <div class="ai-orbit ai-orbit-3"><span class="ai-orbit-dot"></span></div>
-
-    <!-- Mạng nơ-ron + tín hiệu dữ liệu -->
-    <svg class="ai-net" viewBox="0 0 360 360">
+    <svg class="nn-svg" viewBox="0 0 360 360">
       <defs>
-        <linearGradient id="aiLineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id="nnGrad" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stop-color="#2b8af0" />
           <stop offset="100%" stop-color="#f26a1b" />
         </linearGradient>
       </defs>
 
-      <g class="ai-lines">
-        <path
-          v-for="n in nodes"
-          :key="'l' + n.i"
-          :id="'ai-line-' + n.i"
-          :d="`M${n.x},${n.y} L${cx},${cy}`"
+      <!-- Đường kết nối -->
+      <g class="nn-edges">
+        <line
+          v-for="(e, i) in edges"
+          :key="'e' + i"
+          class="nn-edge"
+          :x1="e.x1"
+          :y1="e.y1"
+          :x2="e.x2"
+          :y2="e.y2"
+          :data-layer="e.layer"
         />
       </g>
 
-      <g>
-        <circle v-for="n in nodes" :key="'s' + n.i" class="ai-signal" r="3.5" />
+      <!-- Xung dữ liệu -->
+      <g class="nn-signals">
+        <circle v-for="s in signalCount" :key="'s' + s" class="nn-signal" r="3" />
       </g>
 
-      <g>
-        <circle v-for="n in nodes" :key="'nd' + n.i" class="ai-node" :cx="n.x" :cy="n.y" r="6.5" />
+      <!-- Nút -->
+      <g class="nn-nodes">
+        <circle
+          v-for="n in nodes"
+          :key="n.id"
+          class="nn-node"
+          :cx="n.x"
+          :cy="n.y"
+          r="6"
+          :style="{ fill: mix(n.frac) }"
+        />
       </g>
     </svg>
-
-    <!-- Lõi trung tâm -->
-    <div class="ai-core"><span class="ai-core-text">AIDT</span></div>
-
-    <!-- Hạt bay -->
-    <span v-for="p in particles" :key="'p' + p" class="ai-particle" :class="'ai-particle-' + p"></span>
   </div>
 </template>
 
 <style scoped>
-.ai-hero {
+.nn-hero {
   position: relative;
-  width: 340px;
-  height: 340px;
+  width: 360px;
+  height: 360px;
   max-width: 100%;
   margin: 0 auto;
 }
 
-.ai-glow {
+.nn-glow {
   position: absolute;
-  inset: 8%;
+  inset: 6%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(42, 138, 240, 0.35), rgba(242, 106, 27, 0.18) 55%, transparent 72%);
-  filter: blur(26px);
+  background: radial-gradient(circle, rgba(42, 138, 240, 0.3), rgba(242, 106, 27, 0.16) 55%, transparent 72%);
+  filter: blur(28px);
+  opacity: 0.75;
 }
 
-.ai-orbit {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  border-radius: 50%;
-  border: 1.5px dashed rgba(42, 138, 240, 0.28);
-}
-.ai-orbit-1 { width: 100%; height: 100%; }
-.ai-orbit-2 { width: 74%; height: 74%; border-color: rgba(242, 106, 27, 0.3); }
-.ai-orbit-3 { width: 50%; height: 50%; }
-
-.ai-orbit-dot {
-  position: absolute;
-  top: -5px;
-  left: 50%;
-  width: 10px;
-  height: 10px;
-  margin-left: -5px;
-  border-radius: 50%;
-  background: #2b8af0;
-  box-shadow: 0 0 10px rgba(42, 138, 240, 0.9);
-}
-.ai-orbit-dot.orange {
-  background: #f26a1b;
-  box-shadow: 0 0 10px rgba(242, 106, 27, 0.9);
-}
-
-.ai-net {
+.nn-svg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
 }
-.ai-lines path {
+
+.nn-edge {
   fill: none;
-  stroke: url(#aiLineGrad);
-  stroke-width: 1.4;
+  stroke: url(#nnGrad);
+  stroke-width: 1;
+  opacity: 0.32;
+}
+
+.nn-node {
+  opacity: 0.92;
+  transform-box: fill-box;
+  transform-origin: center;
+  filter: drop-shadow(0 0 4px rgba(42, 138, 240, 0.45));
+}
+
+.nn-signal {
+  fill: #ffffff;
+  filter: drop-shadow(0 0 6px rgba(242, 106, 27, 0.95));
+}
+
+/* Dark mode: đường nối sáng hơn chút cho rõ trên nền tối */
+:global(.dark) .nn-edge {
   opacity: 0.4;
 }
-.ai-node {
-  fill: #2b8af0;
-  opacity: 0.5;
-  filter: drop-shadow(0 0 4px rgba(42, 138, 240, 0.7));
-}
-.ai-signal {
-  fill: #f26a1b;
-  filter: drop-shadow(0 0 5px rgba(242, 106, 27, 0.9));
-}
-
-.ai-core {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 96px;
-  height: 96px;
-  margin: -48px 0 0 -48px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #2b8af0, #1e7fe0 45%, #f26a1b);
-  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.18), 0 10px 30px rgba(42, 86, 160, 0.45);
-}
-.ai-core-text {
-  font-weight: 800;
-  letter-spacing: 1px;
-  font-size: 22px;
-  color: #fff;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-}
-
-.ai-particle {
-  position: absolute;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: rgba(242, 106, 27, 0.85);
-  box-shadow: 0 0 8px rgba(242, 106, 27, 0.6);
-}
-.ai-particle-0 { top: 12%; left: 20%; background: rgba(42, 138, 240, 0.85); }
-.ai-particle-1 { top: 26%; right: 12%; }
-.ai-particle-2 { bottom: 18%; left: 14%; }
-.ai-particle-3 { bottom: 12%; right: 22%; background: rgba(42, 138, 240, 0.85); }
-.ai-particle-4 { top: 46%; left: 6%; }
-.ai-particle-5 { top: 8%; right: 38%; background: rgba(42, 138, 240, 0.85); }
-
-:global(.dark) .ai-orbit { border-color: rgba(90, 168, 245, 0.3); }
-:global(.dark) .ai-orbit-2 { border-color: rgba(255, 138, 69, 0.32); }
 </style>
