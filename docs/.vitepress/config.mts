@@ -111,9 +111,8 @@ export default defineConfig({
   },
 
   themeConfig: {
-    // TODO: khi có file logo AIDT, đặt vào docs/public/ rồi bật dòng dưới
-    // logo: '/logo.png',
-    siteTitle: 'AIDT — Trung tâm Hỗ trợ',
+    logo: '/logo_brand.png',
+    siteTitle: false,
 
     nav: [
       { text: 'Trang chủ', link: '/' },

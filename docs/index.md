@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "AIDT"
   text: "Tài liệu & Hỗ trợ"
-  tagline: Viện Trí tuệ Nhân tạo và Chuyển đổi số (HUTECH) — Trung tâm quản lý tài liệu, hỗ trợ, hệ thống và các ứng dụng AI.
+  tagline: Viện Trí tuệ Nhân tạo và Chuyển đổi số — Tài liệu, hỗ trợ, hệ thống và các ứng dụng AI.
   actions:
     - theme: brand
       text: Khám phá hỗ trợ

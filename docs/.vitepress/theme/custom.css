@@ -235,3 +235,10 @@
     transition: none !important;
   }
 }
+
+/* Logo brand HUTECH (dạng ngang) — tăng chiều cao cho dễ đọc trên navbar */
+.VPNavBarTitle .logo {
+  height: 53px;
+  width: auto;
+  max-width: none;
+}
