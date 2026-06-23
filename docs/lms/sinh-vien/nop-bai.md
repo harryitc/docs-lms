@@ -1,4 +1,11 @@
+---
+title: Nộp bài & làm kiểm tra
+description: "Hướng dẫn sinh viên nộp bài tập và làm bài kiểm tra / trắc nghiệm trực tuyến trên Canvas LMS – HUTECH."
+---
+
 # Nộp bài & làm kiểm tra
+
+Hướng dẫn sinh viên **nộp bài tập** và **làm bài kiểm tra / trắc nghiệm** trực tuyến trong khóa học trên **Canvas LMS**.
 
 ## Nộp bài tập
 
@@ -8,7 +15,7 @@
 4. **Tải tệp lên** (kéo–thả hoặc chọn tệp) hoặc nhập nội dung trực tiếp.
 5. Nhấn **Lưu** → **Nộp bài**.
 
-<!-- ![Nộp bài tập](/images/lms-submit.png) -->
+<!-- ![Nộp bài tập](/images/lms/sv-submit.png) -->
 
 ::: warning Lưu ý về hạn nộp
 - Sau **hạn nộp**, hệ thống có thể **không nhận** bài hoặc đánh dấu **nộp trễ**.
@@ -23,6 +30,8 @@
 3. Nhấn **Bắt đầu làm bài**.
 4. Trả lời các câu hỏi — hệ thống **tự lưu** theo thời gian.
 5. Nhấn **Nộp tất cả và kết thúc**.
+
+<!-- ![Làm bài kiểm tra / trắc nghiệm](/images/lms/sv-quiz.png) -->
 
 ::: tip
 Giữ kết nối ổn định khi làm bài có giới hạn thời gian. Nếu mất kết nối, đăng nhập lại ngay — phần đã làm thường được lưu tự động.
