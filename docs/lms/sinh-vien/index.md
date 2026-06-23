@@ -21,5 +21,5 @@ Hướng dẫn sử dụng **Canvas LMS** dành cho sinh viên trong quá trình
 - [Nộp bài & làm kiểm tra](/lms/sinh-vien/nop-bai)
 
 ::: tip
-Khóa học chỉ xuất hiện sau khi bạn đã được **ghi danh (enroll)** vào lớp. Nếu thiếu khóa học, hãy [liên hệ hỗ trợ](/lien-he/).
+Khóa học chỉ xuất hiện sau khi bạn đã được **ghi danh** vào lớp. Nếu thiếu khóa học, hãy [liên hệ hỗ trợ](/lien-he/).
 :::
