@@ -42,6 +42,11 @@ Trong suốt thời gian làm bài thi có giám sát, bạn **không được**
 
 **Bước 5:** Nhấn **Nộp bài** trước khi hết giờ (nếu hết giờ, hệ thống tự động nộp).
 
+<figure>
+  <img src="/images/lms/sv-exam-result.png" alt="Kết quả bài thi sau khi nộp">
+  <figcaption>Hình 2: Kết quả bài thi được ghi nhận sau khi nộp.</figcaption>
+</figure>
+
 ::: tip
 Giữ kết nối ổn định trong suốt thời gian thi. Nếu mất kết nối, đăng nhập lại ngay và liên hệ giảng viên / [hỗ trợ](/lien-he/) nếu không vào lại được.
 :::
