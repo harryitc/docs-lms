@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://docs-lms.vercel.app/sitemap.xml
+Sitemap: https://docs-aidt.vercel.app/sitemap.xml
