@@ -1,31 +1,22 @@
 ---
 title: Hệ thống LMS (Canvas)
-description: "Giới thiệu hệ thống Canvas LMS của AIDT – HUTECH: nền tảng học tập trực tuyến cho sinh viên, giảng viên và bộ phận đào tạo."
+description: "Giới thiệu hệ thống Canvas LMS của AIDT – HUTECH: nền tảng học tập trực tuyến cho sinh viên và giảng viên."
 ---
 
 # Giới thiệu hệ thống LMS (Canvas)
 
 **Canvas LMS (Learning Management System)** là nền tảng quản lý học tập trực tuyến được **AIDT – HUTECH** triển khai trên nền mã nguồn **Canvas** — nơi tổ chức khóa học, tài liệu, bài tập, kiểm tra và theo dõi quá trình học tập.
 
-## Các hệ thống
-
-AIDT vận hành **hai hệ thống** phục vụ những đối tượng khác nhau:
-
-| Hệ thống | Đường dẫn | Dành cho |
-| --- | --- | --- |
-| **LMS** | [lms.hutech.online](https://lms.hutech.online) | **Sinh viên** và **Giảng viên** — học tập và giảng dạy trực tuyến |
-| **Studio** | [studio.hutech.online](https://studio.hutech.online) | Bộ phận **Đào tạo / Quản trị** — quản lý và vận hành hệ thống |
-
-::: tip Bạn nên dùng hệ thống nào?
-- Là **sinh viên** hoặc **giảng viên** → đăng nhập tại **[lms.hutech.online](https://lms.hutech.online)**.
-- Thuộc bộ phận **Đào tạo / Quản trị** → sử dụng **[studio.hutech.online](https://studio.hutech.online)**.
-:::
-
 ## Đăng nhập
 
-- Truy cập đúng đường dẫn hệ thống ở bảng trên.
+- Truy cập **[lms.hutech.online](https://lms.hutech.online)** — hệ thống dành cho **Sinh viên** và **Giảng viên** học tập và giảng dạy trực tuyến.
 - Đăng nhập bằng **tài khoản** được cấp.
 - Quên mật khẩu? Xem hướng dẫn [lấy lại mật khẩu](/lms/quen-mat-khau).
+
+<figure>
+  <img src="/images/lms/lms-login.png" alt="Trang đăng nhập HUTECH LMS">
+  <figcaption>Hình 1: Trang đăng nhập HUTECH LMS.</figcaption>
+</figure>
 
 ## Tài liệu theo vai trò
 

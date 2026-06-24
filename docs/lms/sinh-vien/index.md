@@ -18,7 +18,9 @@ Hướng dẫn sử dụng **Canvas LMS** dành cho sinh viên trong quá trình
 ## Nội dung hướng dẫn
 
 - [Truy cập khóa học](/lms/sinh-vien/truy-cap-khoa-hoc)
-- [Nộp bài & làm kiểm tra](/lms/sinh-vien/nop-bai)
+- [Nộp bài tập](/lms/sinh-vien/nop-bai)
+- [Làm bài kiểm tra / trắc nghiệm](/lms/sinh-vien/lam-bai-kiem-tra)
+- [Làm bài thi](/lms/sinh-vien/lam-bai-thi)
 
 ::: tip
 Khóa học chỉ xuất hiện sau khi bạn đã được **ghi danh** vào lớp. Nếu thiếu khóa học, hãy [liên hệ hỗ trợ](/lien-he/).
