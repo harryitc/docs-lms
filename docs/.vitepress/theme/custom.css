@@ -278,7 +278,9 @@
 /* Bỏ margin-bottom 128px của VPHome (rule scoped .VPHome[data-v-xxx]) để nền
    trang chủ nối thẳng vào footer, tránh dải trắng xen giữa làm lệch màu.
    Cần tăng specificity (.Layout .VPContent) mới thắng được rule scoped đó.
-   Footer đã có sẵn padding trên 48px nên vẫn thoáng. */
+   Thay vào đó dùng padding-bottom (nằm TRONG nền gradient nên không tạo dải
+   trắng) để có khoảng thở giữa nội dung cuối trang và footer. */
 .Layout .VPContent .VPHome {
   margin-bottom: 0;
+  padding-bottom: 56px;
 }
